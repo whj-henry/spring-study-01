@@ -1,5 +1,6 @@
 package org.example.springstudy.config;
 
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -66,7 +67,7 @@ public class PostgresqlDataSourceConfig {
     @Bean("postgresqlDataSourceFactory")
     @DependsOn("postgresqlDataSource")
     public SqlSessionFactory dataSourceFactory() throws Exception {
-        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
         factoryBean.setDataSource(postgresqlDataSource());
         return factoryBean.getObject();
     }

@@ -1,20 +1,19 @@
 package org.example.springstudy.controller;
 
-import jakarta.annotation.Resource;
 import org.example.springstudy.entity.User;
-import org.example.springstudy.mapper.mysql.UserMapper;
+import org.example.springstudy.mapper.postgresql.UserPostMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Wrapper;
+import reactor.core.publisher.Mono;
 
 @RestController("/test")
 public class TestController {
-    @Resource
-    private UserMapper userMapper;
+    @Autowired()
+    private UserPostMapper userMapper;
     @GetMapping
-    public String test(){
+    public Mono<User> test(){
         User user = userMapper.selectById(1);
-        return user.toString();
+        return Mono.justOrEmpty(user);
     }
 }
